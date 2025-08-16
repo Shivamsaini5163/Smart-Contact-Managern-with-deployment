@@ -1,31 +1,11 @@
-# Use an official OpenJDK runtime as a parent image
+# Use a standard base image with Java 17 installed
 FROM openjdk:17-jdk-slim
 
-# Set the working directory in the container
-WORKDIR /app
+# Set an argument to find the JAR file created by the build process
+ARG JAR_FILE=target/*.jar
 
-# Copy the Maven wrapper and the pom.xml file
-COPY .mvn/ .mvn
-COPY mvnw pom.xml ./
+# Copy the JAR file from your project's build folder into the container
+COPY ${JAR_FILE} app.jar
 
-# Download dependencies
-RUN ./mvnw dependency:go-offline
-
-# Copy the project source
-COPY src ./src
-
-# Package the application into a JAR file
-RUN ./mvnw package -DskipTests
-
-# The final image will be based on the JRE
-FROM openjdk:17-jre-slim
-WORKDIR /app
-
-# Copy the JAR from the build stage to the final image
-COPY --from=0 /app/target/*.jar app.jar
-
-# Make port 8080 available to the world outside this container
-EXPOSE 8080
-
-# Run the jar file
-ENTRYPOINT ["java","-jar","app.jar"]
+# Tell the container to run the Spring Boot application when it starts
+ENTRYPOINT ["java","-jar","/app.jar"]
