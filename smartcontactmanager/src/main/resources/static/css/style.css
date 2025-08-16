@@ -1,0 +1,152 @@
+body{
+    background: #23d7a1;
+}
+.bg-primary{
+    background: blue;
+}
+.banner{
+    width: 100%;
+    height: 93vh;
+    color: white;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../image/bghome.jpg") no-repeat center center;
+    background-size: cover;
+}
+.my-card{
+    padding: 20px;
+    background: white;
+}
+/*Log In*/
+.container{
+    height: 100%;
+    align-content: center;
+}
+
+.card{
+    top:30px;
+    height: 410px;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 400px;
+    background-color: rgba(0,0,0,0.5) !important;
+}
+
+.social_icon span{
+    font-size: 60px;
+    margin-left: 10px;
+    color: #FFC312;
+}
+
+.social_icon span:hover{
+    color: white;
+    cursor: pointer;
+}
+
+.card-header h3{
+    color: white;
+}
+
+.social_icon{
+    position: absolute;
+    right: 20px;
+    top: -45px;
+}
+
+.input-group-prepend span{
+    width: 50px;
+    background-color: #FFC312;
+    color: black;
+    border:0 !important;
+}
+
+input:focus{
+    outline: 0 0 0 0  !important;
+    box-shadow: 0 0 0 0 !important;
+
+}
+
+.remember{
+    color: white;
+}
+
+.remember input
+{
+    width: 20px;
+    height: 20px;
+    margin-left: 15px;
+    margin-right: 5px;
+}
+
+.login_btn{
+    color: black;
+    background-color: #FFC312;
+    width: 100px;
+}
+
+.login_btn:hover{
+    color: black;
+    background-color: white;
+}
+
+.links{
+    color: white;
+}
+
+.links a{
+    margin-left: 4px;
+}
+/* Sidebar style */
+@media only screen and (max-width: 600px){
+    .sidebar{
+        display: none;
+        width: 80% !important;
+        background-color: cornflowerblue;
+        position: fixed;
+        height: 100%;
+        padding-top: 45px;
+    }
+    .content{
+        margin-left: 0 !important;
+    }
+}
+
+.sidebar{
+    width: 18%;
+    background-color: cornflowerblue;
+    position: fixed;
+    height: 100%;
+    padding-top: 45px;
+    z-index: 99999999999;
+}
+.sidebar a{
+    display: block;
+    width: 100%;
+    padding: 10px 25px;
+    text-decoration: none;
+    color: white;
+}
+.sidebar a:hover{
+    background-color: blueviolet;
+    color: white;
+}
+.sidebar .divider{
+    height: 0.5px;
+    width: 100%;
+    background-color: blue;
+}
+.content{
+    margin-left: 20%;
+}
+.sidebar .crossBtn{
+    position: absolute;
+    top: 0;
+    right: 35px;
+    font-size: 30px;
+    cursor: pointer;
+}
+.my_profile_picture{
+    width: 35px;
+    height: 35px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid black;
+}
