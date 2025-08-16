@@ -8,18 +8,20 @@ WORKDIR /app
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
 
-# Build the application
+# Download dependencies
 RUN ./mvnw dependency:go-offline
 
 # Copy the project source
 COPY src ./src
 
-# Package the application
+# Package the application into a JAR file
 RUN ./mvnw package -DskipTests
 
 # The final image will be based on the JRE
 FROM openjdk:17-jre-slim
 WORKDIR /app
+
+# Copy the JAR from the build stage to the final image
 COPY --from=0 /app/target/*.jar app.jar
 
 # Make port 8080 available to the world outside this container
