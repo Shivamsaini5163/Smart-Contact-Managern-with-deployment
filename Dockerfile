@@ -10,6 +10,10 @@ COPY ./smartcontactmanager/.mvn/ ./.mvn/
 COPY ./smartcontactmanager/mvnw .
 COPY ./smartcontactmanager/pom.xml .
 
+# *** THIS IS THE FIX ***
+# Make the Maven wrapper executable
+RUN chmod +x ./mvnw
+
 # Download dependencies
 RUN ./mvnw dependency:go-offline
 
