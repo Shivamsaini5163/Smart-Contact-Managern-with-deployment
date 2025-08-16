@@ -150,11 +150,11 @@ public class UserController {
             //image
             if(!file.isEmpty()){
                 //delete old photo
-                File deleteFile=new ClassPathResource("static/image").getFile();
+                File deleteFile=new ClassPathResource("target/classes/static/image").getFile();
                 File file1=new File(deleteFile,oldContactDetails.getImage());
                 file1.delete();
                 //update new photo
-                File saveFile=new ClassPathResource("static/image").getFile();
+                File saveFile=new ClassPathResource("target/classes/static/image").getFile();
                 Path path=Paths.get(saveFile.getAbsoluteFile()+File.separator+file.getOriginalFilename());
                 Files.copy(file.getInputStream(),path, StandardCopyOption.REPLACE_EXISTING);
                 contact.setImage(file.getOriginalFilename());
