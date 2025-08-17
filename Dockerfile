@@ -30,12 +30,12 @@ FROM openjdk:17-slim
 # Set the working directory
 WORKDIR /app
 
-# Copy the built JAR file from the 'builder' stage
-COPY --from=builder /app/target/*.jar app.jar
+# *** THIS IS THE FINAL FIX ***
+# Copy the specific JAR file that was created during the build stage
+COPY --from=builder /app/target/smartcontactmanager-0.0.1-SNAPSHOT.jar app.jar
 
 # Expose the port the application runs on
 EXPOSE 8080
 
-# The command to run the application when the container starts.
-# This "shell form" ensures environment variables are correctly processed.
+# The command to run the application when the container starts
 ENTRYPOINT ["sh", "-c", "java -jar /app.jar"]
