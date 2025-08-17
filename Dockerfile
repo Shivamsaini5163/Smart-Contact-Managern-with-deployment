@@ -5,12 +5,12 @@ FROM openjdk:17-jdk-slim as builder
 # Set the working directory for the build
 WORKDIR /app
 
-# Copy only the necessary build files first to leverage Docker's caching
+# Copy only the necessary build files first
 COPY ./smartcontactmanager/.mvn/ ./.mvn/
 COPY ./smartcontactmanager/mvnw .
 COPY ./smartcontactmanager/pom.xml .
 
-# Give the maven wrapper permission to run
+# Make the maven wrapper executable
 RUN chmod +x ./mvnw
 
 # Download all project dependencies
@@ -24,10 +24,10 @@ RUN ./mvnw package -DskipTests
 
 
 # --- Run Stage ---
-# This stage runs your built application
+# This stage runs your built application in a smaller, secure image
 FROM openjdk:17-slim
 
-# Set the working directory for the running application
+# Set the working directory
 WORKDIR /app
 
 # Copy the built JAR file from the 'builder' stage
