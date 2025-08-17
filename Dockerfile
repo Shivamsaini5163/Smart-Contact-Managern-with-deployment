@@ -1,30 +1,30 @@
 # --- Build Stage ---
-# This stage builds your Java application
+# Use the full JDK image to build the application
 FROM openjdk:17-jdk-slim as builder
 
-# Set the working directory for the build
+# Set the working directory
 WORKDIR /app
 
-# Copy only the necessary build files first
+# Copy the Maven wrapper and project files
 COPY ./smartcontactmanager/.mvn/ ./.mvn/
 COPY ./smartcontactmanager/mvnw .
 COPY ./smartcontactmanager/pom.xml .
 
-# Make the maven wrapper executable
+# Make the Maven wrapper executable
 RUN chmod +x ./mvnw
 
-# Download all project dependencies
+# Download dependencies
 RUN ./mvnw dependency:go-offline
 
-# Copy the rest of your application's source code
+# Copy the application source code
 COPY ./smartcontactmanager/src/ ./src/
 
-# Build the application into a JAR file
+# Build the application and create the JAR file
 RUN ./mvnw package -DskipTests
 
 
 # --- Run Stage ---
-# This stage runs your built application in a smaller, secure image
+# Use the smaller, more secure slim JRE image to run the application
 FROM openjdk:17-slim
 
 # Set the working directory
@@ -33,8 +33,9 @@ WORKDIR /app
 # Copy the built JAR file from the 'builder' stage
 COPY --from=builder /app/target/*.jar app.jar
 
-# Tell Render that your application will listen on port 8080
+# Expose the port the application runs on
 EXPOSE 8080
 
-# The command to start your application
-ENTRYPOINT ["java","-jar","app.jar"]
+# The command to run the application when the container starts.
+# This "shell form" ensures environment variables are correctly processed.
+ENTRYPOINT ["sh", "-c", "java -jar /app.jar"]
